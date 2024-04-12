@@ -122,7 +122,7 @@ This is a CPA Prediction App that uses machine learning algorithms to predict th
 
 # Create the input widgets for the new name
 new_name_inputs = []
-col1, col2 = st.columns(4)
+col1, col2 = st.columns(2)
 
 for i in range(28):
     if i % 2 == 0:
