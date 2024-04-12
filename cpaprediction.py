@@ -168,58 +168,39 @@ if st.button("Predict The CPA!"):
     # Display the predictions
     st.write("Tomorrow's CPA Prediction:")
     st.write(y_pred)
-import ipywidgets as widgets
-from IPython.display import display
+import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
 
-description3 = widgets.HTML(value="""
-<div style="text-align: left;">
-  <p>Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CPA 8.</p>
-</div>
+# Create the description
+st.write("""
+Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CPA 8.
 """)
+
 # Create the input widgets for the new name
 new_name_inputs_2 = []
 for i in range(8):
-    new_name_input = widgets.Text(value='', placeholder='Enter value', description='CPA ' + str(i+1) + ':', disabled=False)
+    new_name_input = st.text_input(label=f'CPA {i+1}:', key=f'input_{i}')
     new_name_inputs_2.append(new_name_input)
 
-# Arrange the input widgets in a grid
-grid_2 = widgets.GridBox(new_name_inputs_2, layout=widgets.Layout(grid_template_columns='1fr ' * 2))
-
 # Create the button widget
-run_button_2 = widgets.Button(description="Show Line Chart!")
+if st.button("Show Line Chart!"):
+    # Get the input values
+    new_name_2 = np.array([float(new_name_input) for new_name_input in new_name_inputs_2]).reshape(-1, 1)
 
-# Create the output widget
-output_2 = widgets.Output()
+    # Create the line chart
+    plt.figure(figsize=(10, 5))
+    plt.plot(range(1, 9), new_name_2, label='CPA Values')
+    plt.xlabel('Day')
+    plt.xticks(range(1, 9))
+    plt.ylabel('CPA')
+    plt.title('CPA Prediction Chart')
+    plt.legend()
+    plt.grid(False) # Set grid to False to remove the grid
+    plt.scatter(range(1, 9), new_name_2, label='CPA Values')
+    for i, txt in enumerate(new_name_2.flatten()):
+        plt.annotate(txt, (i+1, txt))
 
-# Define the function to be executedwhen the button is clicked
-def on_button_clicked_2(b):
-    with output_2:
-        # Display a loading message
-        print("Loading...")
-        output_2.clear_output(wait=True)
-
-        # Get the input values
-        new_name_2 = np.array([float(new_name_input.value) for new_name_input in new_name_inputs_2]).reshape(-1, 1)
-
-        # Create the line chart
-        plt.figure(figsize=(10, 5))
-        plt.plot(range(1, 9), new_name_2, label='CPA Values')
-        plt.xlabel('Day')
-        plt.xticks(range(1, 9))
-        plt.ylabel('CPA')
-        plt.title('CPA Prediction Chart')
-        plt.legend()
-        plt.grid(False) # Set grid to False to remove the grid
-        plt.scatter(range(1, 9), new_name_2, label='CPA Values')
-        for i, txt in enumerate(new_name_2.flatten()):
-            plt.annotate(txt, (i+1, txt))
-
-        # Plot a red line from day 7 to 8
-        plt.plot(range(7, 9), [new_name_2[6][0], new_name_2[7][0]], 'r-', label='Day 7 to 8')
-        plt.show()
-
-# Connect the function to the button
-run_button_2.on_click(on_button_clicked_2)
-
-# Display the description3, grid_2, run_button_2, and output_2 widgets
-display(description3, grid_2, run_button_2, output_2)
+    # Plot a red line from day 7 to 8
+    plt.plot(range(7, 9), [new_name_2[6][0], new_name_2[7][0]], 'r-', label='Day 7 to 8')
+    st.pyplot(plt)
