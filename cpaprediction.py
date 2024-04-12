@@ -61,10 +61,8 @@ def stats_features(input_data):
     return inp
 import pandas as pd
 zymuno_df = pd.read_csv('https://raw.githubusercontent.com/johnferijrr/submission/main/1%20year%20zymuno.csv', delimiter=',')
-zymuno_df
 df_ori = zymuno_df
 df_ori['Date'] = pd.to_datetime(df_ori['Date'])
-df_ori['CPA'].iloc[:10]
 df_X = df_ori[['Cost','CPC (Destination)','CPM','CPA','CPA']]
 in_seq = df_X.astype(float).values
 #out_seq = df_y.astype(float).values
@@ -86,14 +84,10 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 X_train = stats_features(X_train)
 X_test = stats_features(X_test)
 
-X.shape
-X
-X[0]
-y[0]
+
 df_new=df_ori[['Date','CPA']]
 df_new.set_index('Date')
-X_test
-y_test
+
 from sklearn.impute import SimpleImputer
 
 imputer = SimpleImputer(strategy='mean')
