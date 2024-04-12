@@ -122,8 +122,13 @@ This is a CPA Prediction App that uses machine learning algorithms to predict th
 
 # Create the input widgets for the new name
 new_name_inputs = []
+col1, col2 = st.beta_columns(2)
+
 for i in range(28):
-    new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
+    if i % 2 == 0:
+        new_name_input = col1.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
+    else:
+        new_name_input = col2.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
     new_name_inputs.append(new_name_input)
 
 # Create the button widget
@@ -173,8 +178,13 @@ Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CP
 
 # Create the input widgets for the new name
 new_name_inputs_2 = []
+col1, col2 = st.beta_columns(2)
+
 for i in range(8):
-    new_name_input = st.text_input(label=f'CPA {i+1}:', key=f'input_{i}')
+    if i % 2 == 0:
+        new_name_input = col1.text_input(label=f'CPA {i+1}:', key=f'input_{i}')
+    else:
+        new_name_input = col2.text_input(label=f'CPA {i+1}:', key=f'input_{i}')
     new_name_inputs_2.append(new_name_input)
 
 # Create the button widget
