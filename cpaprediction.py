@@ -12,7 +12,6 @@ from scipy.stats import pearsonr
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVC
 from sklearn.svm import SVR
-from xgboost import XGBClassifier
 import csv
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
