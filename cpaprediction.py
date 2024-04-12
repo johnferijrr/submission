@@ -129,7 +129,7 @@ This is a CPA Prediction App that uses machine learning algorithms to predict th
 # Create the input widgets for the new name
 new_name_inputs = []
 for i in range(28):
-    new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i}')
+    new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
     new_name_inputs.append(new_name_input)
 
 # Create the button widget
