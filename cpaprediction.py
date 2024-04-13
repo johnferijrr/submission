@@ -138,6 +138,14 @@ import numpy as np
 # Initialize the OCR engine
 pytesseract.pytesseract.tesseract_cmd = r'<path_to_tesseract_executable>'
 
+import streamlit as st
+import cv2
+import pytesseract
+import numpy as np
+
+# Initialize the OCR engine
+pytesseract.pytesseract.tesseract_cmd = r'<path_to_tesseract_executable>'
+
 # Create the input widgets for the new name
 new_name_inputs = []
 with st.form("cpa_form"):
@@ -206,6 +214,9 @@ with st.form("cpa_form"):
             # Display the predictions
             st.write("Tomorrow's CPA Prediction:")
             st.write(y_pred)
+
+# Close the form
+st.form_submit_button("Submit", key="form_submit_button")
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
