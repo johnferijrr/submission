@@ -121,7 +121,7 @@ st.write("""
 This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC, CPM, and CPA) for the 7 days before tomorrow.
 """)
 st.write("""
-Enter the Cost, CPC, CPM, and CPA at day 1 as a Value 1 until Value 4, and so on.
+Enter the Cost, CPC, CPM, and CPA at day 1 as a Value 1 until Value 4, and so on:
 """)
 # Create the input widgets for the new name
 new_name_inputs = []
@@ -170,7 +170,7 @@ import matplotlib.pyplot as plt
 
 # Create the description
 st.write("""
-Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CPA 8.
+Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CPA 8:
 """)
 
 # Create the input widgets for the new name
