@@ -115,6 +115,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import RandomizedSearchCV
 
 # Create the title and description
+st.subheader("Hi, welcome :wave:")
 st.title("CPA Prediction App")
 st.write("""
 This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC, CPM, and CPA) for the 7 days before tomorrow.
