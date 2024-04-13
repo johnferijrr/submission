@@ -172,7 +172,7 @@ Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CP
 
 # Create the input widgets for the new name
 new_name_inputs_2 = []
-with st.form("cpa_form"):
+with st.form("cpa_form_2"):
     for i in range(8):
         new_name_input = st.text_input(label=f'CPA {i+1}:', key=f'input_{i+1}')
         new_name_inputs_2.append(new_name_input)
