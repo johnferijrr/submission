@@ -122,97 +122,47 @@ This is a CPA Prediction App that uses machine learning algorithms to predict th
 st.write("""
 Enter the Cost, CPC, CPM, and CPA at day 1 as a Value 1 until Value 4, and so on (don't forget to recheck before click the button!)::
 """)
-import streamlit as st
-import cv2
-import pytesseract
-import numpy as np
+# Create the input widgets for the new name
+new_name_inputs = []
+with st.form("cpa_form"):
+    for i in range(28):
+        new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
+        new_name_inputs.append(new_name_input)
+    if st.form_submit_button("Predict The CPA!"):
+        # Get the input values
+        new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
 
-# Initialize the OCR engine
-pytesseract.pytesseract.tesseract_cmd = r'<path_to_tesseract_executable>'
+        # Scale the input features
+        scaler = StandardScaler().fit(X_train_no_nan)
+        X_train_scaled = scaler.transform(X_train_no_nan)
+        X_test_scaled = scaler.transform(new_name)
 
-import streamlit as st
-import cv2
-import pytesseract
-import numpy as np
+        # Define the hyperparameter distribution
+        param_dist = {
+            'n_estimators': [10, 50, 100, 200, 500],
+            'max_depth': [None, 10, 20, 30, 40, 50],
+            'min_samples_split': [2, 5, 10, 20, 30],
+            'min_samples_leaf': [1, 2, 4, 8, 16]
+        }
 
-# Initialize the OCR engine
-pytesseract.pytesseract.tesseract_cmd = r'<path_to_tesseract_executable>'
+        # Initialize the Random Forest Regressor model
+        model = RandomForestRegressor(random_state=42)
 
-import streamlit as st
-import cv2
-import pytesseract
-import numpy as np
+        # Perform hyperparameter tuning using RandomizedSearchCV
+        random_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, cv=5, scoring='neg_mean_squared_error', verbose=0, n_iter=20)
+        random_search.fit(X_train_scaled, y_train_no_nan)
 
-import numpy as np
-import streamlit as st
-import cv2
-import pytesseract
-from PIL import Image
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import RandomizedSearchCV
-from sklearn.preprocessing import StandardScaler
+        # Extract the best model and fit it to the training data
+        best_model = random_search.best_estimator_
+        best_model.fit(X_train_scaled, y_train_no_nan)
 
-# Add image upload feature
-uploaded_image = st.file_uploader("Upload an image", type="jpg")
+        # Make predictions on the test data
+        y_pred = best_model.predict(X_test_scaled)
+        y_pred = np.round(y_pred, 0)
 
-if uploaded_image is not None:
-    # Add OCR button
-    if st.button("Perform OCR"):
-        # Perform OCR on the uploaded image
-        image = Image.open(uploaded_image)
-        text = pytesseract.image_to_string(image)
-
-        # Extract the values from the OCR text
-        values = []
-        for line in text.split('\n'):
-            for i, value in enumerate(line.split()):
-                if i < 4:
-                    values.append(value)
-
-        # Create the input widgets for the new name
-        new_name_inputs = []
-        with st.form("cpa_form"):
-            for i in range(28):
-                new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+28}', value=values[i] if i < len(values) else '')
-                new_name_inputs.append(new_name_input)
-            if st.form_submit_button("Predict The CPA!"):
-                # Get the input values
-                new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
-
-                # Scale the input features
-                scaler = StandardScaler().fit(X_train_no_nan)
-                X_train_scaled = scaler.transform(X_train_no_nan)
-                X_test_scaled = scaler.transform(new_name)
-
-                # Define the hyperparameter distribution
-                param_dist = {
-                    'n_estimators': [10, 50, 100, 200, 500],
-                    'max_depth': [None, 10, 20, 30, 40, 50],
-                    'min_samples_split': [2, 5, 10, 20, 30],
-                    'min_samples_leaf': [1, 2, 4, 8, 16]
-                }
-
-                # Initialize the Random Forest Regressor model
-                model = RandomForestRegressor(random_state=42)
-
-                # Perform hyperparameter tuning using RandomizedSearchCV
-                random_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, cv=5, scoring='neg_mean_squared_error', verbose=0, n_iter=20)
-                random_search.fit(X_train_scaled, y_train_no_nan)
-
-                # Extract the best model and fit it to the training data
-                best_model = random_search.best_estimator_
-                best_model.fit(X_train_scaled, y_train_no_nan)
-
-                # Make predictions on the test data
-                y_pred = best_model.predict(X_test_scaled)
-                y_pred = np.round(y_pred, 0)
-
-                # Display the predictions
-                st.write("Tomorrow's CPA Prediction:")
-                st.write(y_pred)
-
-# Close the form
-st.form_submit_button("Submit")
+        # Display the predictions
+        st.write("Tomorrow's CPA Prediction:")
+        st.write(y_pred)
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
