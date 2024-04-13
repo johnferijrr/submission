@@ -199,3 +199,4 @@ with st.form("cpa_form_2"):
         # Plot a red line from day 7 to 8
         plt.plot(range(7, 9), [new_name_2[6][0], new_name_2[7][0]], 'r-', label='Day 7 to 8')
         st.pyplot(plt)
+st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
