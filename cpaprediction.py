@@ -130,6 +130,14 @@ import numpy as np
 # Initialize the OCR engine
 pytesseract.pytesseract.tesseract_cmd = r'<path_to_tesseract_executable>'
 
+import streamlit as st
+import cv2
+import pytesseract
+import numpy as np
+
+# Initialize the OCR engine
+pytesseract.pytesseract.tesseract_cmd = r'<path_to_tesseract_executable>'
+
 # Create the input widgets for the new name
 new_name_inputs = []
 with st.form("cpa_form"):
@@ -162,6 +170,7 @@ with st.form("cpa_form"):
             new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+28}', value=new_name_inputs[i])
             new_name_inputs.append(new_name_input)
 
+        # Add a submit button to the form
         if st.form_submit_button("Predict The CPA!"):
             # Get the input values
             new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
