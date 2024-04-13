@@ -6,3 +6,4 @@ seaborn==0.13.0
 streamlit==1.26.0
 scikit-learn
 pytesseract
+opencv-python-headless
