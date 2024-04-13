@@ -170,7 +170,7 @@ import matplotlib.pyplot as plt
 
 # Create the description
 st.write("""
-Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CPA 8:
+Enter the CPA at day 1 until day 8 (Tomorrow's CPA Prediction) as CPA 1 until CPA 8:
 """)
 
 # Create the input widgets for the new name
