@@ -216,7 +216,7 @@ with st.form("cpa_form"):
             st.write(y_pred)
 
 # Close the form
-st.form_submit_button("Submit", key="form_submit_button")
+st.form_submit_button("Submit")
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
