@@ -119,7 +119,9 @@ st.title("CPA Prediction App")
 st.write("""
 This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC, CPM, and CPA) for the 7 days before tomorrow.
 """)
-
+st.write("""
+Enter the Cost, CPC, CPM, and CPA at day 1 as a Value 1 until Value 4, and so on.
+""")
 # Create the input widgets for the new name
 new_name_inputs = []
 with st.form("cpa_form"):
