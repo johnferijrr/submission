@@ -122,51 +122,45 @@ This is a CPA Prediction App that uses machine learning algorithms to predict th
 
 # Create the input widgets for the new name
 new_name_inputs = []
-col1, col2 = st.columns(2)
+with st.form("cpa_form"):
+    for i in range(28):
+        new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
+        new_name_inputs.append(new_name_input)
+    if st.form_submit_button("Predict The CPA!"):
+        # Get the input values
+        new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
 
-for i in range(28):
-    if i % 2 == 0:
-        new_name_input = col1.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
-    else:
-        new_name_input = col2.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
-    new_name_inputs.append(new_name_input)
+        # Scale the input features
+        scaler = StandardScaler().fit(X_train_no_nan)
+        X_train_scaled = scaler.transform(X_train_no_nan)
+        X_test_scaled = scaler.transform(new_name)
 
-# Create the button widget
-if st.button("Predict The CPA!"):
-    # Get the input values
-    new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
+        # Define the hyperparameter distribution
+        param_dist = {
+            'n_estimators': [10, 50, 100, 200, 500],
+            'max_depth': [None, 10, 20, 30, 40, 50],
+            'min_samples_split': [2, 5, 10, 20, 30],
+            'min_samples_leaf': [1, 2, 4, 8, 16]
+        }
 
-    # Scale the input features
-    scaler = StandardScaler().fit(X_train_no_nan)
-    X_train_scaled = scaler.transform(X_train_no_nan)
-    X_test_scaled = scaler.transform(new_name)
+        # Initialize the Random Forest Regressor model
+        model = RandomForestRegressor(random_state=42)
 
-    # Define the hyperparameter distribution
-    param_dist = {
-        'n_estimators': [10, 50, 100, 200, 500],
-        'max_depth': [None, 10, 20, 30, 40, 50],
-        'min_samples_split': [2, 5, 10, 20, 30],
-        'min_samples_leaf': [1, 2, 4, 8, 16]
-    }
+        # Perform hyperparameter tuning using RandomizedSearchCV
+        random_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, cv=5, scoring='neg_mean_squared_error', verbose=0, n_iter=20)
+        random_search.fit(X_train_scaled, y_train_no_nan)
 
-    # Initialize the Random Forest Regressor model
-    model = RandomForestRegressor(random_state=42)
+        # Extract the best model and fit it to the training data
+        best_model = random_search.best_estimator_
+        best_model.fit(X_train_scaled, y_train_no_nan)
 
-    # Perform hyperparameter tuning using RandomizedSearchCV
-    random_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, cv=5, scoring='neg_mean_squared_error', verbose=0, n_iter=20)
-    random_search.fit(X_train_scaled, y_train_no_nan)
+        # Make predictions on the test data
+        y_pred = best_model.predict(X_test_scaled)
+        y_pred = np.round(y_pred, 0)
 
-    # Extract the best model and fit it to the training data
-    best_model = random_search.best_estimator_
-    best_model.fit(X_train_scaled, y_train_no_nan)
-
-    # Make predictions on the test data
-    y_pred = best_model.predict(X_test_scaled)
-    y_pred = np.round(y_pred, 0)
-
-    # Display the predictions
-    st.write("Tomorrow's CPA Prediction:")
-    st.write(y_pred)
+        # Display the predictions
+        st.write("Tomorrow's CPA Prediction:")
+        st.write(y_pred)
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -178,33 +172,27 @@ Enter the CPA at day 1 until Day 8 (Tomorrow's CPA Prediction) as CPA 1 until CP
 
 # Create the input widgets for the new name
 new_name_inputs_2 = []
-col1, col2 = st.columns(2)
+with st.form("cpa_form"):
+    for i in range(8):
+        new_name_input = st.text_input(label=f'CPA {i+1}:', key=f'input_{i+1}')
+        new_name_inputs_2.append(new_name_input)
+    if st.form_submit_button("Show Line Chart!"):
+        # Get the input values
+        new_name_2 = np.array([float(new_name_input) for new_name_input in new_name_inputs_2]).reshape(-1, 1)
 
-for i in range(8):
-    if i % 2 == 0:
-        new_name_input = col1.text_input(label=f'CPA {i+1}:', key=f'input_{i}')
-    else:
-        new_name_input = col2.text_input(label=f'CPA {i+1}:', key=f'input_{i}')
-    new_name_inputs_2.append(new_name_input)
+        # Create the line chart
+        plt.figure(figsize=(10, 5))
+        plt.plot(range(1, 9), new_name_2, label='CPA Values')
+        plt.xlabel('Day')
+        plt.xticks(range(1, 9))
+        plt.ylabel('CPA')
+        plt.title('CPA Prediction Chart')
+        plt.legend()
+        plt.grid(False) # Set grid to False to remove the grid
+        plt.scatter(range(1, 9), new_name_2, label='CPA Values')
+        for i, txt in enumerate(new_name_2.flatten()):
+            plt.annotate(txt, (i+1, txt))
 
-# Create the button widget
-if st.button("Show Line Chart!"):
-    # Get the input values
-    new_name_2 = np.array([float(new_name_input) for new_name_input in new_name_inputs_2]).reshape(-1, 1)
-
-    # Create the line chart
-    plt.figure(figsize=(10, 5))
-    plt.plot(range(1, 9), new_name_2, label='CPA Values')
-    plt.xlabel('Day')
-    plt.xticks(range(1, 9))
-    plt.ylabel('CPA')
-    plt.title('CPA Prediction Chart')
-    plt.legend()
-    plt.grid(False) # Set grid to False to remove the grid
-    plt.scatter(range(1, 9), new_name_2, label='CPA Values')
-    for i, txt in enumerate(new_name_2.flatten()):
-        plt.annotate(txt, (i+1, txt))
-
-    # Plot a red line from day 7 to 8
-    plt.plot(range(7, 9), [new_name_2[6][0], new_name_2[7][0]], 'r-', label='Day 7 to 8')
-    st.pyplot(plt)
+        # Plot a red line from day 7 to 8
+        plt.plot(range(7, 9), [new_name_2[6][0], new_name_2[7][0]], 'r-', label='Day 7 to 8')
+        st.pyplot(plt)
