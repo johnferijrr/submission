@@ -167,6 +167,9 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
+st.write("""
+Please refresh the website if you want input new values
+""")
 # Create the description
 st.write("""
 Enter the CPA at day 1 until day 8 (Tomorrow's CPA Prediction) as CPA 1 until CPA 8 (don't forget to recheck before click the button!):
