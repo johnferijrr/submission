@@ -63,7 +63,7 @@ import pandas as pd
 zymuno_df = pd.read_csv('https://raw.githubusercontent.com/johnferijrr/submission/main/1%20year%20zymuno.csv', delimiter=',')
 df_ori = zymuno_df
 df_ori['Date'] = pd.to_datetime(df_ori['Date'])
-df_X = df_ori[['Cost','CPC (Destination)','CPM','CPA','CPA']]
+df_X = df_ori[['Cost','CPC (Destination)','CPM','Impression','Clicks (Destination)','CTR (Destination)','Conversions','CPA','CPA']]
 in_seq = df_X.astype(float).values
 #out_seq = df_y.astype(float).values
 
@@ -125,8 +125,31 @@ Enter the Cost, CPC, CPM, and CPA at day 1 as a Value 1 until Value 4, and so on
 # Create the input widgets for the new name
 new_name_inputs = []
 with st.form("cpa_form"):
-    for i in range(28):
-        new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+28}')
+    for i in range(56):
+        if i % 7 == 0:
+            # Cost at Day X
+            new_name_input = st.number_input(label=f'Cost at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
+        elif i % 7 == 1:
+            # CPC (Destination) at Day X
+            new_name_input = st.number_input(label=f'CPC (Destination) at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=100, value=0)
+        elif i % 7 == 2:
+            # CPM at Day X
+            new_name_input = st.number_input(label=f'CPM at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
+        elif i % 7 == 3:
+            # Impression at Day X
+            new_name_input = st.number_input(label=f'Impression at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
+        elif i % 7 == 4:
+            # Clicks (Destination) at Day X
+            new_name_input = st.number_input(label=f'Clicks (Destination) at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
+        elif i % 7 == 5:
+            # CTR (Destination) at Day X
+            new_name_input = st.number_input(label=f'CTR (Destination) at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=100, value=0)
+        elif i % 7 == 6:
+            # Conversions at Day X
+            new_name_input = st.number_input(label=f'Conversions at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
+        elif i % 7 == 7:
+            # CPA at Day X
+            new_name_input = st.number_input(label=f'CPA at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
         new_name_inputs.append(new_name_input)
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
