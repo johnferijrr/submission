@@ -126,32 +126,8 @@ Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (D
 new_name_inputs = []
 with st.form("cpa_form"):
     for i in range(56):
-        if i % 7 == 0:
-            # Cost at Day X
-            new_name_input = st.number_input(label=f'Cost at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
-        elif i % 7 == 1:
-            # CPC (Destination) at Day X
-            new_name_input = st.number_input(label=f'CPC (Destination) at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=100, value=0)
-        elif i % 7 == 2:
-            # CPM at Day X
-            new_name_input = st.number_input(label=f'CPM at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
-        elif i % 7 == 3:
-            # Impression at Day X
-            new_name_input = st.number_input(label=f'Impression at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
-        elif i % 7 == 4:
-            # Clicks (Destination) at Day X
-            new_name_input = st.number_input(label=f'Clicks (Destination) at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
-        elif i % 7 == 5:
-            # CTR (Destination) at Day X
-            new_name_input = st.number_input(label=f'CTR (Destination) at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=100, value=0)
-        elif i % 7 == 6:
-            # Conversions at Day X
-            new_name_input = st.number_input(label=f'Conversions at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
-            if i < 42:
-                # CPA at Day X
-                new_name_input_cpa = st.number_input(label=f'CPA at Day {i//7+1}:', key=f'input_cpa_{i+56}', min_value=0, max_value=1000000, value=0)
-                new_name_inputs.append(new_name_input)
-                new_name_inputs.append(new_name_input_cpa)
+        new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+56}')
+        new_name_inputs.append(new_name_input)
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
         new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
@@ -187,6 +163,7 @@ with st.form("cpa_form"):
         # Display the predictions
         st.write("Tomorrow's CPA Prediction:")
         st.write(y_pred)
+
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
