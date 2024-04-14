@@ -147,10 +147,10 @@ with st.form("cpa_form"):
         elif i % 7 == 6:
             # Conversions at Day X
             new_name_input = st.number_input(label=f'Conversions at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
-        elif i % 7 == 7:
             # CPA at Day X
-            new_name_input = st.number_input(label=f'CPA at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
+            new_name_input_cpa = st.number_input(label=f'CPA at Day {i//7+1}:', key=f'input_cpa_{i+56}', min_value=0, max_value=1000000, value=0)
             new_name_inputs.append(new_name_input)
+            new_name_inputs.append(new_name_input_cpa)
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
         new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
