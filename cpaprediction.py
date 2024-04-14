@@ -117,10 +117,10 @@ from sklearn.model_selection import RandomizedSearchCV
 st.set_page_config(page_title="CPA Prediction App", page_icon="🔎")
 st.title("CPA Prediction App 🔎")
 st.write("""
-This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC, CPM, and CPA) for the 7 days before tomorrow.
+This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, CPA) for the 7 days before tomorrow.
 """)
 st.write("""
-Enter the Cost, CPC, CPM, and CPA at day 1 as a Value 1 until Value 4, and so on (don't forget to recheck again before click the button!):
+Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, and CPA at Day 1 until Day 7, and so on (don't forget to recheck again before click the button!):
 """)
 # Create the input widgets for the new name
 new_name_inputs = []
@@ -147,10 +147,11 @@ with st.form("cpa_form"):
         elif i % 7 == 6:
             # Conversions at Day X
             new_name_input = st.number_input(label=f'Conversions at Day {i//7+1}:', key=f'input_{i+56}', min_value=0, max_value=1000000, value=0)
-            # CPA at Day X
-            new_name_input_cpa = st.number_input(label=f'CPA at Day {i//7+1}:', key=f'input_cpa_{i+56}', min_value=0, max_value=1000000, value=0)
-            new_name_inputs.append(new_name_input)
-            new_name_inputs.append(new_name_input_cpa)
+            if i < 48:
+                # CPA at Day X
+                new_name_input_cpa = st.number_input(label=f'CPA at Day {i//7+1}:', key=f'input_cpa_{i+56}', min_value=0, max_value=1000000, value=0)
+                new_name_inputs.append(new_name_input)
+                new_name_inputs.append(new_name_input_cpa)
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
         new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
