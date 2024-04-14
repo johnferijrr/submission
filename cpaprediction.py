@@ -126,7 +126,25 @@ Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (D
 new_name_inputs = []
 with st.form("cpa_form"):
     for i in range(56):
-        new_name_input = st.text_input(label=f'Value {i+1}:', key=f'input_{i+56}')
+        day = (i // 8) + 1
+        metric = i % 8
+        if metric == 0:
+            metric = "Cost"
+        elif metric == 1:
+            metric = "CPC (Destination)"
+        elif metric == 2:
+            metric = "CPM"
+        elif metric == 3:
+            metric = "Impression"
+        elif metric == 4:
+            metric = "Clicks (Destination)"
+        elif metric == 5:
+            metric = "CTR (Destination)"
+        elif metric == 6:
+            metric = "Conversions"
+        else:
+            metric = "CPA"
+        new_name_input = st.text_input(label=f'{metric} at Day {day}:', key=f'input_{i+56}')
         new_name_inputs.append(new_name_input)
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
