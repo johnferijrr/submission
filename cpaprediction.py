@@ -181,7 +181,6 @@ with st.form("cpa_form"):
         # Display the predictions
         st.write("Tomorrow's CPA Prediction:")
         st.write(y_pred)
-
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
