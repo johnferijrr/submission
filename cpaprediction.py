@@ -178,9 +178,9 @@ with st.form("cpa_form"):
         y_pred = best_model.predict(X_test_scaled)
         y_pred = np.round(y_pred, 0)
 
-        # Display the predictions
-        st.write("Tomorrow's CPA Prediction:")
-        st.write(y_pred)
+        # Display the predictions in the sidebar
+        st.sidebar.write("Tomorrow's CPA Prediction:")
+        st.sidebar.write(y_pred)
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
