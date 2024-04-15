@@ -149,13 +149,11 @@ with st.form("cpa_form"):
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
         new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
-        print("Input values:", new_name)
 
         # Scale the input features
         scaler = StandardScaler().fit(X_train_no_nan)
         X_train_scaled = scaler.transform(X_train_no_nan)
         X_test_scaled = scaler.transform(new_name)
-        print("Scaled input features:", X_test_scaled)
 
         # Define the hyperparameter distribution
         param_dist = {
@@ -171,17 +169,14 @@ with st.form("cpa_form"):
         # Perform hyperparameter tuning using RandomizedSearchCV
         random_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, cv=5, scoring='neg_mean_squared_error', verbose=0, n_iter=20)
         random_search.fit(X_train_scaled, y_train_no_nan)
-        print("Best hyperparameters:", random_search.best_params_)
 
         # Extract the best model and fit it to the training data
         best_model = random_search.best_estimator_
         best_model.fit(X_train_scaled, y_train_no_nan)
-        print("Best model:", best_model)
 
         # Make predictions on the test data
         y_pred = best_model.predict(X_test_scaled)
         y_pred = np.round(y_pred, 0)
-        print("Predictions:", y_pred)
 
         # Display the predictions
         st.write("Tomorrow's CPA Prediction:")
