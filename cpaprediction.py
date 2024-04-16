@@ -120,7 +120,7 @@ st.write("""
 This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, CPA) for the 7 days before tomorrow.
 """)
 st.write("""
-Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, and CPA at Day 1 until Day 7 (Don't forget to recheck again before click the button!):
+Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, and CPA at Day 1 until Day 4 (Don't forget to recheck again before click the button!):
 """)
 # Create the input widgets for the new name
 new_name_inputs = []
@@ -190,13 +190,13 @@ Please refresh the website if you want input new values
 """)
 # Create the description
 st.write("""
-Enter the CPA at day 1 until day 8 (Tomorrow's CPA Prediction) as CPA at Day 1 until CPA at Day 8 (Don't forget to recheck again before click the button!):
+Enter the CPA at day 1 until day 8 (Tomorrow's CPA Prediction) as CPA at Day 1 until CPA at Day 5 (Don't forget to recheck again before click the button!):
 """)
 
 # Create the input widgets for the new name
 new_name_inputs_2 = []
 with st.form("cpa_form_2"):
-    for i in range(8):
+    for i in range(5):
         new_name_input = st.text_input(label=f'CPA at Day {i+1}:', key=f'input_{i+1}')
         new_name_inputs_2.append(new_name_input)
     if st.form_submit_button("Show Line Chart!"):
@@ -212,12 +212,12 @@ with st.form("cpa_form_2"):
         plt.title('CPA Prediction Chart')
         plt.legend()
         plt.grid(False) # Set grid to False to remove the grid
-        plt.scatter(range(1, 9), new_name_2, label='CPA Values')
+        plt.scatter(range(1, 6), new_name_2, label='CPA Values')
         for i, txt in enumerate(new_name_2.flatten()):
             plt.annotate(txt, (i+1, txt))
 
         # Plot a red line from day 7 to 8
-        plt.plot(range(7, 9), [new_name_2[6][0], new_name_2[7][0]], 'r-', label='Day 7 to 8')
+        plt.plot(range(3, 5), [new_name_2[3][0], new_name_2[4][0]], 'r-', label='Day 4 to 5')
         st.pyplot(plt)
 	    
 st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
