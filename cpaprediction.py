@@ -121,6 +121,7 @@ This is a CPA Prediction App that uses machine learning algorithms to predict th
 """)
 st.write("""
 Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, and CPA at Day 1 until Day 4 (Don't forget to recheck again before click the button!):
+""")
 # Create the input widgets for the new name
 new_name_inputs = []
 with st.form("cpa_form"):
