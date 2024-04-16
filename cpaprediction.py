@@ -163,22 +163,5 @@ with st.form("cpa_form"):
         # Display the predictions in the sidebar
         st.sidebar.write("Tomorrow's CPA Prediction:")
         st.sidebar.write(y_pred)
-
-        #Create the line chart
-        plt.figure(figsize=(10, 5))
-        plt.plot(range(4), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
-        plt.xlabel('Day')
-        plt.xticks(range(1, 6))
-        plt.ylabel('CPA')
-        plt.title('CPA Prediction Chart')
-        plt.legend()
-        plt.grid(False) # Set grid to False to remove the grid
-        plt.scatter(range(1, 6), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
-        plt.scatter(5, y_pred[0], label='Predicted CPA')
-        plt.annotate('CPA at Day 5', xy=(5, y_pred[0]), xytext=(5, y_pred[0]), fontsize=10, fontweight='bold', color='black', bbox=dict(facecolor='white', edgecolor='black', boxstyle='round'), arrowprops=dict(facecolor='black', arrowstyle='->'))
-
-        # Plot a red line from day 7 to 8
-        plt.plot(range(4, 6), [y_pred[0], y_pred[0]], 'r-', label='Day 4 to 5')
-        st.sidebar.pyplot(plt)
 	
 st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
