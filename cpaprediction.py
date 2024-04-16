@@ -150,32 +150,14 @@ with st.form("cpa_form"):
         # Get the input values
         new_name = np.array([float(new_name_input) for new_name_input in new_name_inputs]).reshape(-1, X_test.shape[1])
 
-        # Scale the input features
-        scaler = StandardScaler().fit(X_train_no_nan)
-        X_train_scaled = scaler.transform(X_train_no_nan)
-        X_test_scaled = scaler.transform(new_name)
-
-        # Define the hyperparameter distribution
-        param_dist = {
-            'n_estimators': [10, 50, 100, 200, 500],
-            'max_depth': [None, 10, 20, 30, 40, 50],
-            'min_samples_split': [2, 5, 10, 20, 30],
-            'min_samples_leaf': [1, 2, 4, 8, 16]
-        }
-
         # Initialize the Random Forest Regressor model
         model = RandomForestRegressor(random_state=42)
 
         # Perform hyperparameter tuning using RandomizedSearchCV
-        random_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, cv=5, scoring='neg_mean_squared_error', verbose=0, n_iter=20)
-        random_search.fit(X_train_scaled, y_train_no_nan)
-
-        # Extract the best model and fit it to the training data
-        best_model = random_search.best_estimator_
-        best_model.fit(X_train_scaled, y_train_no_nan)
+        model.fit(X_train_no_nan, y_train_no_nan)
 
         # Make predictions on the test data
-        y_pred = best_model.predict(X_test_scaled)
+        y_pred = model.predict(new_name)
         y_pred = np.round(y_pred, 0)
 
         # Display the predictions in the sidebar
