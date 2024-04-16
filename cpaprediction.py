@@ -166,7 +166,7 @@ with st.form("cpa_form"):
 
         # Create the line chart
         plt.figure(figsize=(10, 5))
-        plt.plot(range(1, 6), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
+        plt.plot(range(5), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
         plt.xlabel('Day')
         plt.xticks(range(1, 6))
         plt.ylabel('CPA')
