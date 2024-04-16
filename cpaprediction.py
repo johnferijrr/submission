@@ -117,7 +117,7 @@ from sklearn.model_selection import RandomizedSearchCV
 st.set_page_config(page_title="CPA Prediction App", page_icon="🔎")
 st.title("CPA Prediction App 🔎")
 st.write("""
-This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, CPA) for the 7 days before tomorrow.
+This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, CPA) for the 4 days before tomorrow.
 """)
 st.write("""
 Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, and CPA at Day 1 until Day 4 (Don't forget to recheck again before click the button!):
@@ -190,7 +190,7 @@ Please refresh the website if you want input new values
 """)
 # Create the description
 st.write("""
-Enter the CPA at day 1 until day 8 (Tomorrow's CPA Prediction) as CPA at Day 1 until CPA at Day 5 (Don't forget to recheck again before click the button!):
+Enter the CPA at day 1 until day 5 (Tomorrow's CPA Prediction) as CPA at Day 1 until CPA at Day 5 (Don't forget to recheck again before click the button!):
 """)
 
 # Create the input widgets for the new name
