@@ -199,7 +199,7 @@ with st.form("cpa_form_2"):
             plt.annotate(txt, (i+1, txt))
 
         # Plot a red line from day 7 to 8
-        plt.plot(range(3, 5), [new_name_2[4][0], new_name_2[5][0]], 'r-', label='Day 4 to 5')
+        plt.plot(range(4, 6), [new_name_2[3][0], new_name_2[4][0]], 'r-', label='Day 4 to 5')
         st.pyplot(plt)
 	    
 st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
