@@ -163,5 +163,7 @@ with st.form("cpa_form"):
         # Display the predictions in the sidebar
         st.sidebar.write("Tomorrow's CPA Prediction:")
         st.sidebar.write(y_pred)
-	
+st.write("""
+Please refresh the website if you want input new values
+""")	
 st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
