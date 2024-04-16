@@ -174,7 +174,7 @@ with st.form("cpa_form"):
         plt.annotate('CPA at Day 5', xy=(5, y_pred[0]), xytext=(5, y_pred[0]), fontsize=10, fontweight='bold', color='black', bbox=dict(facecolor='white', edgecolor='black', boxstyle='round'), arrowprops=dict(facecolor='black', arrowstyle='->'))
 
         # Plot a red line from day 7 to 8
-        plt.plot(range(4, 6), [y_pred[0], y_pred[0]], 'r-', label='Day 4 to 5')
-        st.pyplot(plt)
+	plt.plot(range(1, 6), new_name_inputs[::8], label='CPA Values')        
+	st.pyplot(plt)
 	    
 st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
