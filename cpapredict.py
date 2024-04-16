@@ -181,9 +181,6 @@ with st.form("cpa_form"):
         # Display the predictions in the sidebar
         st.sidebar.write("Tomorrow's CPA Prediction:")
         st.sidebar.write(y_pred)
-import streamlit as st
-import numpy as np
-import matplotlib.pyplot as plt
 
 st.write("""
 Please refresh the website if you want input new values
