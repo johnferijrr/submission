@@ -160,46 +160,21 @@ with st.form("cpa_form"):
         y_pred = model.predict(new_name)
         y_pred = np.round(y_pred, 0)
 
-        # Display the predictions in the sidebar
-        st.sidebar.write("Tomorrow's CPA Prediction:")
-        st.sidebar.write(y_pred)
-import streamlit as st
-import numpy as np
-import matplotlib.pyplot as plt
-
-st.write("""
-Please refresh the website if you want input new values
-""")
-# Create the description
-st.write("""
-Enter the CPA at day 1 until day 5 (Tomorrow's CPA Prediction) as CPA at Day 1 until CPA at Day 5 (Don't forget to recheck again before click the button!):
-""")
-
-# Create the input widgets for the new name
-new_name_inputs_2 = []
-with st.form("cpa_form_2"):
-    for i in range(5):
-        new_name_input = st.text_input(label=f'CPA at Day {i+1}:', key=f'input_{i+1}')
-        new_name_inputs_2.append(new_name_input)
-    if st.form_submit_button("Show Line Chart!"):
-        # Get the input values
-        new_name_2 = np.array([float(new_name_input) for new_name_input in new_name_inputs_2]).reshape(-1, 1)
-
         # Create the line chart
         plt.figure(figsize=(10, 5))
-        plt.plot(range(1, 6), new_name_2, label='CPA Values')
+        plt.plot(range(1, 6), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
         plt.xlabel('Day')
         plt.xticks(range(1, 6))
         plt.ylabel('CPA')
         plt.title('CPA Prediction Chart')
         plt.legend()
         plt.grid(False) # Set grid to False to remove the grid
-        plt.scatter(range(1, 6), new_name_2, label='CPA Values')
-        for i, txt in enumerate(new_name_2.flatten()):
-            plt.annotate(txt, (i+1, txt))
+        plt.scatter(range(1, 6), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
+        plt.scatter(5, y_pred[0], label='Predicted CPA')
+        plt.annotate('CPA at Day 5', xy=(5, y_pred[0]), xytext=(5, y_pred[0]), fontsize=10, fontweight='bold', color='black', bbox=dict(facecolor='white', edgecolor='black', boxstyle='round'), arrowprops=dict(facecolor='black', arrowstyle='->'))
 
         # Plot a red line from day 7 to 8
-        plt.plot(range(4, 6), [new_name_2[3][0], new_name_2[4][0]], 'r-', label='Day 4 to 5')
+        plt.plot(range(4, 6), [y_pred[0], y_pred[0]], 'r-', label='Day 4 to 5')
         st.pyplot(plt)
 	    
 st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
