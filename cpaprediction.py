@@ -205,9 +205,9 @@ with st.form("cpa_form_2"):
 
         # Create the line chart
         plt.figure(figsize=(10, 5))
-        plt.plot(range(1, 9), new_name_2, label='CPA Values')
+        plt.plot(range(1, 6), new_name_2, label='CPA Values')
         plt.xlabel('Day')
-        plt.xticks(range(1, 9))
+        plt.xticks(range(1, 6))
         plt.ylabel('CPA')
         plt.title('CPA Prediction Chart')
         plt.legend()
