@@ -160,21 +160,8 @@ with st.form("cpa_form"):
         y_pred = model.predict(new_name)
         y_pred = np.round(y_pred, 0)
 
-        # Create the line chart
-        plt.figure(figsize=(10, 5))
-        plt.plot(range(1, 6), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
-        plt.xlabel('Day')
-        plt.xticks(range(1, 6))
-        plt.ylabel('CPA')
-        plt.title('CPA Prediction Chart')
-        plt.legend()
-        plt.grid(False) # Set grid to False to remove the grid
-        plt.scatter(range(1, 6), [float(new_name_inputs[i]) for i in range(0, 32, 8)], label='CPA Values')
-        for i, txt in enumerate(y_pred):
-            plt.annotate(txt, (i+1, txt))
-
-        # Plot a red line from day 7 to 8
-        plt.plot(range(4, 6), [y_pred[3], y_pred[4]], 'r-', label='Day 4 to 5')
-        st.pyplot(plt)
+        # Display the predictions in the sidebar
+        st.sidebar.write("Tomorrow's CPA Prediction:")
+        st.sidebar.write(y_pred)
 	    
 st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
