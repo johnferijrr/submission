@@ -60,7 +60,7 @@ def stats_features(input_data):
     #print(inp)
     return inp
 import pandas as pd
-zymuno_df = pd.read_csv('https://raw.githubusercontent.com/johnferijrr/submission/main/1%20year%20zymuno.csv', delimiter=',')
+zymuno_df = pd.read_csv('https://raw.githubusercontent.com/johnferijrr/submission/main/1%20year%20zymuno%20.csv', delimiter=',')
 df_ori = zymuno_df
 df_ori['Date'] = pd.to_datetime(df_ori['Date'])
 df_X = df_ori[['Cost','CPC (Destination)','CPM','Impression','Clicks (Destination)','CTR (Destination)','Conversions','CPA','CPA']]
@@ -74,7 +74,7 @@ in_seq = df_X.astype(float).values
 #dataset = hstack((in_seq1, out_seq))
 
 
-n_steps_in, n_steps_out = 7, 1
+n_steps_in, n_steps_out = 4, 1
 X, y = split_sequences(in_seq, n_steps_in, n_steps_out)
 
 n_input = X.shape[1] * X.shape[2]
@@ -125,7 +125,7 @@ Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (D
 # Create the input widgets for the new name
 new_name_inputs = []
 with st.form("cpa_form"):
-    for i in range(56):
+    for i in range(32):
         day = (i // 8) + 1
         metric = i % 8
         if metric == 0:
@@ -144,7 +144,7 @@ with st.form("cpa_form"):
             metric = "Conversions"
         else:
             metric = "CPA"
-        new_name_input = st.text_input(label=f'{metric} at Day {day}:', key=f'input_{i+56}')
+        new_name_input = st.text_input(label=f'{metric} at Day {day}:', key=f'input_{i+32}')
         new_name_inputs.append(new_name_input)
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
