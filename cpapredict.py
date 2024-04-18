@@ -125,7 +125,7 @@ Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (D
 # Create the input widgets for the new name
 new_name_inputs = []
 with st.form("cpa_form"):
-    for i in range(24):
+    for i in range(32):
         day = (i // 8) + 1
         metric = i % 8
         if metric == 0:
@@ -144,7 +144,7 @@ with st.form("cpa_form"):
             metric = "Conversions"
         else:
             metric = "CPA"
-        new_name_input = st.text_input(label=f'{metric} at Day {day}:', key=f'input_{i+24}')
+        new_name_input = st.text_input(label=f'{metric} at Day {day}:', key=f'input_{i+32}')
         new_name_inputs.append(new_name_input)
     if st.form_submit_button("Predict The CPA!"):
         # Get the input values
