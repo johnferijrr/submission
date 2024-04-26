@@ -117,10 +117,10 @@ from sklearn.model_selection import RandomizedSearchCV
 st.set_page_config(page_title="CPA Prediction App", page_icon="🔎")
 st.title("CPA Prediction App 🔎")
 st.write("""
-This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, CPA) for the 7 days before tomorrow.
+This is a CPA Prediction App that uses machine learning algorithms to predict the Cost Per Acquisition (CPA) for a given set of input features (Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, CPA) for the n days before tomorrow.
 """)
 st.write("""
-Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, and CPA at Day 1 until Day 7 (Don't forget to recheck again before click the button!):
+Enter the Cost, CPC (Destination), CPM, Impression, Clicks (Destination), CTR (Destination), Conversions, and CPA at Day 1 until Day n (Don't forget to recheck again before click the button!):
 """)
 # Create the input widgets for the new name
 new_name_inputs = []
