@@ -187,4 +187,4 @@ Please refresh the website if you want input new values
 """)
 
 	    
-st.caption('Copyright (c) John Feri Jr. Ramadhan 2024')
+st.caption('Copyright (c) PT Ebliethos Indonesia 2024')
